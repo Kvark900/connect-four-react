@@ -1,10 +1,10 @@
 import React, {useEffect} from "react";
 import Circle from "../Circle/Circle";
 
-export default function Column(circles) {
+export default function Column(props) {
   return <div>
-    {[...Array(6)].map(() =>
-        <Circle/>
+    {props.circles.map((el, i) =>
+        <Circle key={i} value={el}/>
     )}
   </div>
 }

@@ -10,13 +10,10 @@ let onMouseLeave = () => {
     UIUtil.removeArrow(i, tableHeads)
 };*/
 
-export default function Circle() {
+export default function Circle(props) {
 
-    return <div className="cell"><div className="circle"/></div>
-    return <div /*onMouseOver={onMouseOver}
-                onMouseLeave={onMouseLeave}
-                onClick={() => {
-                    game.playMove(MatrixMath.getColumnIndex(i))
-                }}*/
-            className="circle"/>
+  return <div className="cell">
+    <div className={props.value == null ? "circle" : props.value}/>
+  </div>
+
 }

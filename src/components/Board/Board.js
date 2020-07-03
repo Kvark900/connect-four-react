@@ -13,7 +13,7 @@ export default class Board extends Component {
   constructor() {
     super();
     this.state = {
-      boardState: new Array(6).fill(new Array(7).fill(null)),
+      boardState: new Array(this.numberOfColumns).fill(new Array(this.numberOfRows).fill(null)),
       playerTurn: 'Red',
       gameMode: '',
       gameSelected: false,
@@ -21,14 +21,13 @@ export default class Board extends Component {
     }
   }
 
-
   componentDidMount() {
-/*
-    console.log(this._grid);
-    console.log(this.state);
-    this.initRows();
-    this.initCircles();
-*/
+    /*
+        console.log(this._grid);
+        console.log(this.state);
+        this.initRows();
+        this.initCircles();
+    */
   }
 
   initRows() {
@@ -43,24 +42,14 @@ export default class Board extends Component {
 
 
   render() {
-    let columns = [...Array(6)].map((el, i) =>
+    let columns = this.state.boardState.map((el, i) =>
         <Column key={i}
-                circles={this.state.boardState[i]}/>
+                circles={el}/>
     );
 
     return <div className="game-table">
       {columns}
     </div>
-
-
-    /*<table ref={table => {
-      this._grid = table
-    }}
-                  className="game-table">*/
-    // <tbody>
-
-    // </tbody>
-    // </table>
   }
 
 }
