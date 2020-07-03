@@ -1,0 +1,18 @@
+#container {
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.player-radios{
+    padding-left: 50px !important;
+}
+
+#game-command-panel {
+    padding: 10px 100px 10px 10px;
+    width: 500px;
+}
+
+.nav-link{
+    cursor: default;
+}

@@ -1,12 +1,14 @@
 import React from 'react';
 import './App.css';
 import Board from "./components/Board/Board";
-import $ from "jquery"
+import Menu from "./components/gameMenu/Menu";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-function App() {
+export default function App() {
   return (
-      <div className="Game"><Board/></div>
+      <div className="Game">
+        <Board/>
+        <Menu/>
+      </div>
   );
 }
-
-export default App;

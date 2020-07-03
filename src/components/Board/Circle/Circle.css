@@ -1,0 +1,33 @@
+.cell {
+    padding: 5px;
+    margin: 1px;
+    min-width: 30px;
+    min-height: 30px;
+}
+
+.circle {
+    width: 80px;
+    margin: 5px;
+    height: 80px;
+    border-radius: 50%;
+    background: white;
+    transition: transform 0.5s;
+}
+
+.Red {
+    width: 80px;
+    margin: 5px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: red;
+    /*transform: translateY(80px);*/
+}
+
+.Yellow {
+    width: 80px;
+    margin: 5px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: yellow;
+    /*transform: translateY(80px);*/
+}
