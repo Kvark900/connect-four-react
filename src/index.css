@@ -11,3 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.Game {
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+}
