@@ -31,6 +31,7 @@ export default function Board(props) {
 
 
   function playMove(columnOrderNum) {
+    if (localStorage.getItem("authUser") == null) return;
     const gridClone = state.grid.map(arr => arr.slice());
     let column = gridClone[columnOrderNum].reverse();
     let emptyCell = column.indexOf(null);
