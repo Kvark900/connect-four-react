@@ -20,10 +20,6 @@ class Firebase {
   constructor() {
     if (!app.apps.length) app.initializeApp(config);
     this.auth = app.auth();
-    this.auth.onAuthStateChanged(authUser => {
-      authUser ? localStorage.setItem('authUser', JSON.stringify(authUser))
-          : localStorage.removeItem('authUser');
-    });
     this.db = app.database();
   }
 

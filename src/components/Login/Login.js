@@ -22,6 +22,7 @@ import {useHistory} from "react-router";
 export default function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
   let history = useHistory();
 
 
@@ -38,14 +39,13 @@ export default function Login(props) {
       let response = await fb.signIn(email, password);
       console.log(response);
       goHome();
-      // setErrorMsg("")
-      // localStorage.setItem("token", response.data.token);
-      // localStorage.setItem("username", username);
-      //
+      setErrorMsg("");
+      localStorage.setItem("authUser", JSON.stringify(response.user));
       console.log("Current user is", localStorage.getItem("authUser"));
    } catch (e) {
       console.error(e);
-      // setErrorMsg("Invalid credentials")
+      localStorage.removeItem("authUser");
+      setErrorMsg("Invalid credentials")
     }
   };
 
@@ -60,7 +60,7 @@ export default function Login(props) {
                   <div className="text-muted text-center mb-3">
                     <h1>Sign in</h1>
                   </div>
-                  {/*<div className="text-center text-danger"> {errorMsg}</div>*/}
+                  <div className="text-center text-danger"> {errorMsg}</div>
                 </CardHeader>
                 <CardBody className="px-lg-5 py-lg-5">
                   <Form role="form"
@@ -126,30 +126,6 @@ export default function Login(props) {
             </Col>
           </Row>
         </Container>
-        {/*<Form>
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control type="email"
-                          placeholder="Enter email"/>
-            <Form.Text className="text-muted">
-              We'll never share your email with anyone else.
-            </Form.Text>
-          </Form.Group>
-
-          <Form.Group controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password"
-                          placeholder="Password"/>
-          </Form.Group>
-          <Form.Group controlId="formBasicCheckbox">
-            <Form.Check type="checkbox"
-                        label="Check me out"/>
-          </Form.Group>
-          <Button variant="primary"
-                  type="submit">
-            Submit
-          </Button>
-        </Form>*/}
       </>
   )
 }
