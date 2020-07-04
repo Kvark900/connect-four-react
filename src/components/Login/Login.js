@@ -33,15 +33,15 @@ export default function Login(props) {
 
   let handleSubmit = async (event) => {
     let fb = Firebase.getInstance();
-    console.log(email, password);
+    // console.log(email, password);
     event.preventDefault();
     try {
       let response = await fb.signIn(email, password);
-      console.log(response);
+      // console.log(response);
       goHome();
       setErrorMsg("");
       localStorage.setItem("authUser", JSON.stringify(response.user));
-      console.log("Current user is", localStorage.getItem("authUser"));
+      // console.log("Current user is", localStorage.getItem("authUser"));
    } catch (e) {
       console.error(e);
       localStorage.removeItem("authUser");

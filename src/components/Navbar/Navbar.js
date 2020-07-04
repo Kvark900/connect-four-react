@@ -8,20 +8,20 @@ export default function NavbarMenu(props) {
 
   useEffect(() => {
     let user = localStorage.getItem("authUser");
-    console.log("From useEffect - setting user to:", user)
+    // console.log("From useEffect - setting user to:", user)
     setUser(user);
   }, [user]);
 
   function signOut() {
-    console.log("From signOut - setting user to null")
+    // console.log("From signOut - setting user to null")
     setUser(null)
     localStorage.removeItem("authUser")
-    console.log("user in locale: ", localStorage.getItem("authUser"))
+    // console.log("user in locale: ", localStorage.getItem("authUser"))
   }
 
   function getAuthLinks() {
     let user = JSON.parse(localStorage.getItem("authUser"));
-    console.log("from getAuthLinks() - rendering and user is", user)
+    // console.log("from getAuthLinks() - rendering and user is", user)
     if (user != null)
       return <Nav className="ml-auto pr-5 d-flex flex-row">
         <Nav.Link disabled style={{color: "grey"}}> Welcome {user.email}
