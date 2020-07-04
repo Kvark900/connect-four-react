@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import './Board.css';
 import Column from "./Column/Column";
+import Firebase from "../../config/fbConfig";
 
 export default function Board(props) {
   const NUMBER_OF_ROWS = 6;
@@ -23,6 +24,7 @@ export default function Board(props) {
   }
 
   useEffect(() => {
+    console.log("Current user is", localStorage.getItem("authUser"));
     let wins = playerWins(state.grid);
     if (wins) alert(`Player ${wins} wins`)
   }, [state.grid]);
