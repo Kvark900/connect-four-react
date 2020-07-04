@@ -3,6 +3,7 @@ import './App.css';
 import Board from "./components/Board/Board";
 import Menu from "./components/gameMenu/Menu";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import NavbarMenu from "./components/Navbar/Navbar";
 
 
 export const GameContext = createContext(
@@ -16,6 +17,7 @@ export default function App() {
 
   return (
       <GameContext.Provider value={ {grid: grid, setGrid: setGrid}}>
+        <NavbarMenu/>
         <div className="Game">
           <Board/>
           <Menu/>
