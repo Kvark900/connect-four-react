@@ -52,7 +52,7 @@ export default function Login(props) {
   return (
       <>
         <NavbarMenu/>
-        <Container className="pt-lg-7">
+        <Container className="pt-lg-7 mt-5">
           <Row className="justify-content-center">
             <Col lg="5">
               <Card className="bg-secondary shadow border-0">
@@ -62,7 +62,8 @@ export default function Login(props) {
                   </div>
                   <div className="text-center text-danger"> {errorMsg}</div>
                 </CardHeader>
-                <CardBody className="px-lg-5 py-lg-5">
+                <CardBody style={{background: "whitesmoke"}}
+                          className="px-lg-5 py-lg-5">
                   <Form role="form"
                         onSubmit={handleSubmit}>
                     <FormGroup className="mb-3">
