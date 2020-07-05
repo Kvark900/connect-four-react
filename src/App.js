@@ -13,13 +13,12 @@ export const GameContext = createContext(null);
 export default function App() {
   const NUMBER_OF_ROWS = 6;
   const NUMBER_OF_COLUMNS = 7;
-
   const INITIAL_GRID = new Array(NUMBER_OF_COLUMNS).fill(new Array(NUMBER_OF_ROWS).fill(null));
+
   let [grid, setGrid] = useState(INITIAL_GRID);
   let [gameEnabled, setGameEnabled] = useState(false);
   let [gameMode, setGameMode] = useState(null);
   let [playerTurn, setPlayerTurn] = useState("Yellow");
-
 
   useEffect(() => {
     let wins = GameLogic(grid, NUMBER_OF_COLUMNS, NUMBER_OF_ROWS);

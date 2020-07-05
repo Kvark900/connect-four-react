@@ -4,7 +4,6 @@ import Column from "./Column/Column";
 import {GameContext} from "../../App";
 
 export default function Board(props) {
-
   let {
     grid, updateGrid,
     gameEnabled, enableGame,
@@ -12,13 +11,6 @@ export default function Board(props) {
     playerTurn, changePlayerTurn,
     playMove
   } = useContext(GameContext);
-
-
-  function disablePlay() {
-    return localStorage.getItem("authUser") == null
-        || !gameEnabled;
-  }
-
 
   return <div className="game-table">
     {grid.map((el, i) =>
