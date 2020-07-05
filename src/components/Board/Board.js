@@ -1,16 +1,20 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import './Board.css';
 import Column from "./Column/Column";
+import {GameContext} from "../../App";
 
 export default function Board(props) {
   const NUMBER_OF_ROWS = 6;
   const NUMBER_OF_COLUMNS = 7;
+
+  let {grid, gameEnabled, enableGame, gameMode, changeGameMode} = useContext(GameContext);
 
   let [state, setState] = useState({
     grid: new Array(NUMBER_OF_COLUMNS)
         .fill(new Array(NUMBER_OF_ROWS)
             .fill(null)),
     playerTurn: 'Red',
+    gameEnabled: false,
     gameMode: '',
     winner: ''
   });
@@ -23,14 +27,19 @@ export default function Board(props) {
   }
 
   useEffect(() => {
-    console.log("Current user is", localStorage.getItem("authUser"));
+    // console.log("Current user is", localStorage.getItem("authUser"));
     let wins = playerWins(state.grid);
     if (wins) alert(`Player ${wins} wins`)
   }, [state.grid]);
 
 
+  function disablePlay() {
+    return localStorage.getItem("authUser") == null
+        || !gameEnabled;
+  }
+
   function playMove(columnOrderNum) {
-    if (localStorage.getItem("authUser") == null) return;
+    if (disablePlay()) return;
     const gridClone = state.grid.map(arr => arr.slice());
     let column = gridClone[columnOrderNum].reverse();
     let emptyCell = column.indexOf(null);

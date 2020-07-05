@@ -31,9 +31,12 @@ class Firebase {
   // *** Auth API ***
   async registerUser(user) {
     return await this.auth.createUserWithEmailAndPassword(user.email, user.password)
-        .then(loggedInUser => {
+        .then(registered => {
+          registered.user.updateProfile(
+              {displayName: user.username}
+          );
           this.db.collection("users")
-              .doc(loggedInUser.user.uid).set(
+              .doc(registered.user.uid).set(
               {
                 firstName: user.firstName,
                 lastName: user.lastName,

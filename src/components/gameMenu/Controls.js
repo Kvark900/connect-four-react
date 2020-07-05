@@ -1,12 +1,33 @@
-import React from "react";
+import React, {useContext, useRef, useState} from "react";
+import {GameContext} from "../../App";
 
 
 export default function Controls(props) {
+  let {grid, gameEnabled, enableGame, gameMode, changeGameMode} = useContext(GameContext);
+  let vsHumanRadio = useRef();
+  let vsComputer = useRef();
+
+  function handleClick() {
+    let checked = getCheckedGameMode();
+    console.log(vsHumanRadio.current);
+    console.log("Checked radio is: ", checked);
+    enableGame(checked !== "")
+    changeGameMode(checked)
+  }
+
+  function getCheckedGameMode() {
+    if (vsHumanRadio.current.checked)
+      return vsHumanRadio.current.value
+    else if (vsComputer.current.checked)
+      return vsComputer.current.value
+    return ""
+  }
 
   return (
       <>
         <div className="custom-control custom-radio">
-          <input type="radio"
+          <input ref={vsHumanRadio}
+                 type="radio"
                  id="human-radio"
                  name="new-game-radio"
                  value="VSHUMAN"
@@ -17,6 +38,7 @@ export default function Controls(props) {
         </div>
         <div className="custom-control custom-radio">
           <input type="radio"
+                 ref={vsComputer}
                  id="computer-radio"
                  name="new-game-radio"
                  value="VSCOMPUTER"
@@ -48,6 +70,7 @@ export default function Controls(props) {
           </label>
         </div>
         <button type="submit"
+                onClick={handleClick}
                 id="new-game-button"
                 className="btn btn-primary my-2">New Game
         </button>

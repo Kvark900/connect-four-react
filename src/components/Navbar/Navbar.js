@@ -24,7 +24,7 @@ export default function NavbarMenu(props) {
     // console.log("from getAuthLinks() - rendering and user is", user)
     if (user != null)
       return <Nav className="ml-auto pr-5 d-flex flex-row">
-        <Nav.Link disabled style={{color: "grey"}}> Welcome {user.email}
+        <Nav.Link disabled style={{color: "grey"}}> Welcome {user.displayName}
         </Nav.Link>
         <Nav.Link as={Link}
                   to="/"
