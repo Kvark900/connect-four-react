@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './Board.css';
 import Column from "./Column/Column";
-import Firebase from "../../config/fbConfig";
 
 export default function Board(props) {
   const NUMBER_OF_ROWS = 6;
@@ -82,11 +81,11 @@ export default function Board(props) {
   }
 
   return <div className="game-table">
-    {state.grid.map((el, i) =>
-        <Column key={i}
-                onClick={() => playMove(i)}
-                circles={el}/>
-    )}
-  </div>
+      {state.grid.map((el, i) =>
+          <Column key={i}
+                  onClick={() => playMove(i)}
+                  circles={el}/>
+      )}
+    </div>
 }
 

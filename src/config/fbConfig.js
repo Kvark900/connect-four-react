@@ -1,7 +1,6 @@
 import app from 'firebase/app';
 import 'firebase/auth';
-import 'firebase/database';
-import {Persistence} from "firebase";
+import 'firebase/firestore';
 
 const config = {
   apiKey: "AIzaSyCz2prJe11w2tNy5ESaERrSmODKzKAXpJE",
@@ -20,7 +19,7 @@ class Firebase {
   constructor() {
     if (!app.apps.length) app.initializeApp(config);
     this.auth = app.auth();
-    this.db = app.database();
+    this.db = app.firestore();
   }
 
   static getInstance() {
@@ -28,9 +27,20 @@ class Firebase {
       return new Firebase();
     else return this.instance;
   }
+
   // *** Auth API ***
-  registerUser(email, password) {
-    return this.auth.createUserWithEmailAndPassword(email, password);
+  async registerUser(user) {
+    return await this.auth.createUserWithEmailAndPassword(user.email, user.password)
+        .then(loggedInUser => {
+          this.db.collection("users")
+              .doc(loggedInUser.user.uid).set(
+              {
+                firstName: user.firstName,
+                lastName: user.lastName,
+                username: user.username
+              }
+          )
+        })
   }
 
   signIn(email, password) {
@@ -57,7 +67,7 @@ class Firebase {
     return this.auth.currentUser.updatePassword(password);
   }
 
-  // *** User API ***
+// *** User API ***
   user = uid => this.db.ref(`users/${uid}`);
   users = () => this.db.ref('users');
 }

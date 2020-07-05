@@ -20,12 +20,21 @@ import Firebase from "../../config/fbConfig";
 export default function Register() {
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
+  let [username, setUsername] = useState("");
+  let [firstName, setFirstName] = useState("");
+  let [lastName, setLastName] = useState("");
   let [successMsg, setSuccessMsg] = useState("");
 
 
   async function handleSubmit() {
     try {
-      let response = await Firebase.getInstance().registerUser(email, password);
+      let response = await Firebase.getInstance().registerUser({
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        username: username,
+        password: password,
+      });
       setSuccessMsg("You have registered successfully!");
       resetFields();
       console.log("Server response", response);
@@ -38,6 +47,9 @@ export default function Register() {
   function resetFields() {
     setPassword("")
     setEmail("")
+    setUsername("")
+    setLastName("")
+    setFirstName("")
   }
 
   return (
@@ -64,10 +76,58 @@ export default function Register() {
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
+                            placeholder="First Name"
+                            name="firstName"
+                            value={firstName}
+                            onChange={e => {setSuccessMsg(""); setFirstName(e.target.value)}}
+                            required
+                        />
+                      </InputGroup>
+                    </FormGroup>
+                    <FormGroup className="mb-3">
+                      <InputGroup>
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            {/*<i className="ni ni-email-83"/>*/}
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input
+                            placeholder="Last Name"
+                            name="firstName"
+                            value={lastName}
+                            onChange={e => {setSuccessMsg(""); setLastName(e.target.value)}}
+                            required
+                        />
+                      </InputGroup>
+                    </FormGroup>
+                    <FormGroup className="mb-3">
+                      <InputGroup>
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            {/*<i className="ni ni-email-83"/>*/}
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input
                             placeholder="Email"
                             name="email"
                             value={email}
                             onChange={e => {setSuccessMsg(""); setEmail(e.target.value)}}
+                            required
+                        />
+                      </InputGroup>
+                    </FormGroup>
+                    <FormGroup className="mb-3">
+                      <InputGroup>
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            {/*<i className="ni ni-email-83"/>*/}
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input
+                            placeholder="Username"
+                            name="username"
+                            value={username}
+                            onChange={e => {setSuccessMsg(""); setUsername(e.target.value)}}
                             required
                         />
                       </InputGroup>
@@ -90,6 +150,7 @@ export default function Register() {
                         />
                       </InputGroup>
                     </FormGroup>
+
                     <div className="text-center">
                       <Button
                           className="my-4"

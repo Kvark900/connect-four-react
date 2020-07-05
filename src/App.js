@@ -4,6 +4,9 @@ import Board from "./components/Board/Board";
 import Menu from "./components/gameMenu/Menu";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NavbarMenu from "./components/Navbar/Navbar";
+import {BrowserRouter as Router} from "react-router-dom";
+import {Redirect} from "react-router";
+
 
 export const GameContext = createContext(
     {
@@ -15,13 +18,17 @@ export const GameContext = createContext(
 
 export default function App() {
   let [grid, setGrid] = useState([]);
+  if (localStorage.getItem("authUser") == null) return <Redirect to="/login"/>
+
   return (
-        <GameContext.Provider value={{grid: grid, setGrid: setGrid}}>
+      <GameContext.Provider value={{grid: grid, setGrid: setGrid}}>
+        <Router>
           <NavbarMenu/>
           <div className="Game">
             <Board/>
             <Menu/>
           </div>
-        </GameContext.Provider>
+        </Router>
+      </GameContext.Provider>
   );
 }

@@ -37,10 +37,10 @@ export default function Login(props) {
     event.preventDefault();
     try {
       let response = await fb.signIn(email, password);
-      // console.log(response);
-      goHome();
       setErrorMsg("");
       localStorage.setItem("authUser", JSON.stringify(response.user));
+      // console.log(response);
+      goHome();
       // console.log("Current user is", localStorage.getItem("authUser"));
    } catch (e) {
       console.error(e);

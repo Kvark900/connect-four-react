@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import {Link} from "react-router-dom"
+import {Link, useHistory} from "react-router-dom"
 
 export default function NavbarMenu(props) {
   let [user, setUser] = useState(null);
+  let history = useHistory();
 
   useEffect(() => {
     let user = localStorage.getItem("authUser");
@@ -13,10 +14,9 @@ export default function NavbarMenu(props) {
   }, [user]);
 
   function signOut() {
-    // console.log("From signOut - setting user to null")
-    setUser(null)
+    setUser(null);
     localStorage.removeItem("authUser")
-    // console.log("user in locale: ", localStorage.getItem("authUser"))
+    window.location.reload();
   }
 
   function getAuthLinks() {
