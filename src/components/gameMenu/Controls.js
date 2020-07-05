@@ -3,23 +3,31 @@ import {GameContext} from "../../App";
 
 
 export default function Controls(props) {
-  let {grid, gameEnabled, enableGame, gameMode, changeGameMode} = useContext(GameContext);
+  let  {
+    grid, updateGrid,
+    gameEnabled, enableGame,
+    gameMode, changeGameMode,
+    playerTurn, changePlayerTurn,
+    getAIMove, playMove, resetGrid
+  } = useContext(GameContext);
+
   let vsHumanRadio = useRef();
   let vsComputer = useRef();
 
-  function handleClick() {
+  function newGame() {
     let checked = getCheckedGameMode();
     console.log(vsHumanRadio.current);
     console.log("Checked radio is: ", checked);
-    enableGame(checked !== "")
+    enableGame(checked !== "");
     changeGameMode(checked)
+    resetGrid()
   }
 
   function getCheckedGameMode() {
     if (vsHumanRadio.current.checked)
-      return vsHumanRadio.current.value
+      return vsHumanRadio.current.value;
     else if (vsComputer.current.checked)
-      return vsComputer.current.value
+      return vsComputer.current.value;
     return ""
   }
 
@@ -70,7 +78,7 @@ export default function Controls(props) {
           </label>
         </div>
         <button type="submit"
-                onClick={handleClick}
+                onClick={newGame}
                 id="new-game-button"
                 className="btn btn-primary my-2">New Game
         </button>
