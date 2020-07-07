@@ -7,6 +7,9 @@ import NavbarMenu from "./components/Navbar/Navbar";
 import {BrowserRouter as Router} from "react-router-dom";
 import {Redirect} from "react-router";
 import GameLogic from "./components/Game/GameLogic";
+import HighScore from "./components/HighScore/HighScore";
+import Firebase from "./config/fbConfig";
+import * as firebase from "firebase";
 
 export const GameContext = createContext(null);
 
@@ -20,13 +23,25 @@ export default function App() {
   let [gameMode, setGameMode] = useState(null);
   let [playerTurn, setPlayerTurn] = useState("Yellow");
 
+  async function recordWin() {
+    console.log("inside recordWin");
+    let username = JSON.parse(localStorage.getItem("authUser")).displayName;
+    let fb = Firebase.getInstance();
+    const increment = firebase.firestore.FieldValue.increment(1);
+    await fb.db.collection("rankings")
+        .where("user", "==", username)
+        .get()
+        .then(value =>  value.docs[0].ref.update({score: increment}));
+  }
+
   useEffect(() => {
     let wins = GameLogic(grid, NUMBER_OF_COLUMNS, NUMBER_OF_ROWS);
     if (wins) {
       alert(`Player ${wins} wins`);
+      if (playerTurn === "Red" && gameMode === "VSCOMPUTER")
+        recordWin();
       enableGame(false)
-    }
-    else playAIMove();
+    } else playAIMove();
   }, [grid]);
 
   function playMove(columnOrderNum) {
@@ -56,10 +71,7 @@ export default function App() {
     let aIMove = -1;
     while (aIMove === -1) {
       let column = Math.floor((Math.random() * 7));
-      if (grid[column].indexOf(null) !== -1)
-        aIMove = column;
-      else
-        aIMove = -1
+      aIMove = (grid[column].indexOf(null) !== -1) ? column : -1;
     }
     return aIMove;
   }
@@ -104,7 +116,10 @@ export default function App() {
           <NavbarMenu/>
           <div className="Game">
             <Board/>
-            <Menu/>
+            <div className="sideDiv">
+              <Menu/>
+              <HighScore/>
+            </div>
           </div>
         </Router>
       </GameContext.Provider>

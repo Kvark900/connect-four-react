@@ -45,10 +45,10 @@ export default function Register() {
   }
 
   function resetFields() {
-    setPassword("")
-    setEmail("")
-    setUsername("")
-    setLastName("")
+    setPassword("");
+    setEmail("");
+    setUsername("");
+    setLastName("");
     setFirstName("")
   }
 
