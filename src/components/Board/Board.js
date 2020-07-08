@@ -12,12 +12,12 @@ export default function Board(props) {
     playMove
   } = useContext(GameContext);
 
-  return <div className="game-table">
+  return <div><div className="game-table">
     {grid.map((el, i) =>
         <Column key={i}
                 onClick={() => playMove(i)}
                 circles={el}/>
     )}
-  </div>
+  </div></div>
 }
 
