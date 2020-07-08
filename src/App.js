@@ -22,6 +22,7 @@ export default function App() {
   let [gameEnabled, setGameEnabled] = useState(false);
   let [gameMode, setGameMode] = useState(null);
   let [playerTurn, setPlayerTurn] = useState("Yellow");
+  let [rankings, setRankings] = useState([]);
 
   async function recordWin() {
     console.log("inside recordWin");
@@ -32,6 +33,13 @@ export default function App() {
         .where("user", "==", username)
         .get()
         .then(value =>  value.docs[0].ref.update({score: increment}));
+    setRankings(await getRankings())
+  }
+
+  async function getRankings() {
+    let fb = Firebase.getInstance();
+    const snap = await fb.db.collection("rankings").get();
+    return snap.docs.map(doc => doc.data());
   }
 
   useEffect(() => {
@@ -99,6 +107,9 @@ export default function App() {
     setPlayerTurn(player)
   }
 
+  function updateRankings(rankings) {
+    setRankings(rankings)
+  }
   //endregion
 
   if (localStorage.getItem("authUser") == null) return <Redirect to="/login"/>;
@@ -110,7 +121,8 @@ export default function App() {
           gameEnabled, enableGame,
           gameMode, changeGameMode,
           playerTurn, changePlayerTurn,
-          getAIMove, playMove, resetGrid
+          getAIMove, playMove, resetGrid,
+          rankings, updateRankings
         }}>
         <Router>
           <NavbarMenu/>

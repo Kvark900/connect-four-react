@@ -1,17 +1,18 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import Card from "reactstrap/es/Card";
 import CardHeader from "reactstrap/es/CardHeader";
 import CardBody from "reactstrap/es/CardBody";
 import Firebase from "../../config/fbConfig";
 import {Table} from "reactstrap";
+import {GameContext} from "../../App";
 
 export default function HighScore() {
-  let [rankings, setRankings] = useState([]);
+  let { rankings, updateRankings } = useContext(GameContext);
 
   useEffect(() => {
-        console.log("high score useEffect")
+        console.log("high score useEffect");
         getRankings().then(
-            value => setRankings(value)
+            value => updateRankings(value)
         );
       }
   , []);
@@ -27,7 +28,6 @@ export default function HighScore() {
     const snap = await fb.db.collection("rankings").get();
     return snap.docs.map(doc => doc.data());
   }
-
 
   return (
       <>
@@ -49,5 +49,4 @@ export default function HighScore() {
           </CardBody>
         </Card>
       </>)
-
 }
