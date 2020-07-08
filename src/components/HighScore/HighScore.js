@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect} from "react";
 import Card from "reactstrap/es/Card";
 import CardHeader from "reactstrap/es/CardHeader";
 import CardBody from "reactstrap/es/CardBody";
@@ -32,7 +32,7 @@ export default function HighScore() {
   return (
       <>
         <Card style={{marginTop: "10px", width: "500px"}}>
-          <CardHeader>Rankings</CardHeader>
+          <CardHeader style={{textAlign: "center"}}><h3>Rankings</h3></CardHeader>
           <CardBody>
             <Table>
               <thead>

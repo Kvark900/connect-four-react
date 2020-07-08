@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
-import './Circle.css';
+import './Disc.css';
 
-export default function Circle(props) {
+export default function Disc(props) {
   return <div onClick={props.onClick}
        className={props.value === null ? "circle" : props.value}/>
 }

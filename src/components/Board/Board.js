@@ -4,13 +4,7 @@ import Column from "./Column/Column";
 import {GameContext} from "../../App";
 
 export default function Board(props) {
-  let {
-    grid, updateGrid,
-    gameEnabled, enableGame,
-    gameMode, changeGameMode,
-    playerTurn, changePlayerTurn,
-    playMove
-  } = useContext(GameContext);
+  let {grid, playMove} = useContext(GameContext);
 
   return <div><div className="game-table">
     {grid.map((el, i) =>

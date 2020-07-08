@@ -17,6 +17,7 @@ export default function App() {
   const NUMBER_OF_ROWS = 6;
   const NUMBER_OF_COLUMNS = 7;
   const INITIAL_GRID = new Array(NUMBER_OF_COLUMNS).fill(new Array(NUMBER_OF_ROWS).fill(null));
+  const FB = Firebase.getInstance();
 
   let [grid, setGrid] = useState(INITIAL_GRID);
   let [gameEnabled, setGameEnabled] = useState(false);
@@ -25,14 +26,9 @@ export default function App() {
   let [rankings, setRankings] = useState([]);
 
   async function recordWin() {
-    console.log("inside recordWin");
     let username = JSON.parse(localStorage.getItem("authUser")).displayName;
-    let fb = Firebase.getInstance();
-    const increment = firebase.firestore.FieldValue.increment(1);
-    await fb.db.collection("rankings")
-        .where("user", "==", username)
-        .get()
-        .then(value =>  value.docs[0].ref.update({score: increment}));
+    if (await newPlayer(username)) await insertRanking(username)
+    else await updateRanking(username);
     setRankings(await getRankings())
   }
 
@@ -89,6 +85,27 @@ export default function App() {
         || !gameEnabled;
   }
 
+  async function updateRanking(username) {
+    const increment = firebase.firestore.FieldValue.increment(1);
+    await FB.db.collection("rankings")
+        .where("user", "==", username)
+        .get()
+        .then(value => value.docs[0].ref.update({score: increment}));
+  }
+
+  async function insertRanking(username) {
+    await FB.db.collection("rankings").add({
+      user: username,
+      score: 1
+    })
+  }
+
+  async function newPlayer(username) {
+    let querySnapshot = await FB.db.collection("rankings")
+        .where("user", "==", username)
+        .get();
+    return querySnapshot.docs.length === 0
+  }
 
   //region Mutators
   function updateGrid(grid) {
