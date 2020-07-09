@@ -19,7 +19,9 @@ export default function Menu() {
             document.getElementsByClassName("nav-link")[2].classList.add("active");
             document.getElementsByClassName("nav-link")[3].classList.remove("active");
             setState(1)
-        }}> Game Menu </a> and click New Game button after selecting game mode.
+        }}> Game Menu </a> and click New Game button after selecting game mode. The objective of the
+          game is to be the first to form a horizontal, vertical, or diagonal line of four of one's
+          own discs
         </div>;
       case 3 :
         return <div id="card-body">

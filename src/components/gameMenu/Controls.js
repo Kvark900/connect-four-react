@@ -3,7 +3,7 @@ import {GameContext} from "../../App";
 
 
 export default function Controls(props) {
-  let  {
+  let {
     grid, updateGrid,
     gameEnabled, enableGame,
     gameMode, changeGameMode,
@@ -11,15 +11,17 @@ export default function Controls(props) {
     getAIMove, playMove, resetGrid
   } = useContext(GameContext);
 
+  let [errorMsg, setErrorMsg] = useState("");
+
   let vsHumanRadio = useRef();
   let vsComputer = useRef();
 
   function newGame() {
     let checked = getCheckedGameMode();
-    console.log(vsHumanRadio.current);
-    console.log("Checked radio is: ", checked);
+    console.log(checked === "")
+    checked === "" ? setErrorMsg("Please select the game mode!"): setErrorMsg("");
     enableGame(checked !== "");
-    changeGameMode(checked)
+    changeGameMode(checked);
     resetGrid()
   }
 
@@ -33,6 +35,7 @@ export default function Controls(props) {
 
   return (
       <>
+        <div className="text-danger"> {errorMsg} </div>
         <div className="custom-control custom-radio">
           <input ref={vsHumanRadio}
                  type="radio"
