@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import NavbarMenu from "./components/Navbar/Navbar";
 import {BrowserRouter as Router} from "react-router-dom";
 import {Redirect} from "react-router";
-import GameLogic from "./components/Game/GameLogic";
+import playerWins from "./components/Game/GameLogic";
 import Ranking from "./components/HighScore/Ranking";
 import Firebase from "./config/fbConfig";
 import * as firebase from "firebase";
@@ -16,6 +16,13 @@ export const GameContext = createContext(null);
 export default function App() {
   const NUMBER_OF_ROWS = 6;
   const NUMBER_OF_COLUMNS = 7;
+
+  /**
+   * In order to check for legal moves easily,
+   * rows of the matrix are actually columns of the board.
+   *
+   * @type {string[]}
+   */
   const INITIAL_GRID = new Array(NUMBER_OF_COLUMNS).fill(new Array(NUMBER_OF_ROWS).fill(null));
   const FB = Firebase.getInstance();
 
@@ -40,7 +47,7 @@ export default function App() {
   }
 
   useEffect(() => {
-    let wins = GameLogic(grid, NUMBER_OF_COLUMNS, NUMBER_OF_ROWS);
+    let wins = playerWins(grid, NUMBER_OF_COLUMNS, NUMBER_OF_ROWS);
     if (wins) {
       alert(`Player ${wins} wins`);
       if (playerTurn === "Red" && gameMode === "VSCOMPUTER")

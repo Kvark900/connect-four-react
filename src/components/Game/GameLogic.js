@@ -1,10 +1,8 @@
-export default function GameLogic(grid, NUMBER_OF_COLUMNS, NUMBER_OF_ROWS) {
-  function playerWins(grid) {
-    return winsVertically(grid) ||
-           winsHorizontally(grid) ||
-           winsOnMainDiagonal(grid) ||
-           winsOnMinorDiagonal(grid);
-  }
+export default function playerWins(grid, NUMBER_OF_COLUMNS, NUMBER_OF_ROWS) {
+  return winsVertically(grid) ||
+      winsHorizontally(grid) ||
+      winsOnMainDiagonal(grid) ||
+      winsOnMinorDiagonal(grid);
 
   function winsVertically(grid) {
     for (let c = 0; c < NUMBER_OF_COLUMNS; c++)
@@ -22,6 +20,20 @@ export default function GameLogic(grid, NUMBER_OF_COLUMNS, NUMBER_OF_ROWS) {
     return false
   }
 
+  /**
+   * To find first disc in a connected sequence,
+   * algorithm scans discs in top left grid [0-2][0-3](inclusively) only.
+   * Discs in the rest of the grid cannot be
+   * the first disc in a sequence on the main diagonal
+   * to form a sequence of four.
+   * (Direction is top left to bottom right)
+   *
+   * The main diagonal of a matrix A
+   * is the collection of entries A{i,j} where i=j.
+   *
+   * @param grid
+   * @returns {boolean| color of wining player}
+   */
   function winsOnMainDiagonal(grid) {
     for (let r = 0; r < 3; r++)
       for (let c = 0; c < 4; c++)
@@ -30,6 +42,20 @@ export default function GameLogic(grid, NUMBER_OF_COLUMNS, NUMBER_OF_ROWS) {
     return false
   }
 
+
+  /**
+   * To find first disc in a connected sequence,
+   * algorithm scans discs in top right grid
+   * [0-3][3-5](inclusively) only.
+   *
+   * Discs in the rest of the grid cannot be
+   * the first disc in a sequence on the minor diagonal
+   * to form a sequence of four.
+   * (Direction is top right to bottom left)
+   *
+   * @param grid
+   * @returns {boolean| color of wining player}
+   */
   function winsOnMinorDiagonal(grid) {
     for (let r = 0; r < 4; r++)
       for (let c = 3; c < 6; c++)
@@ -41,7 +67,4 @@ export default function GameLogic(grid, NUMBER_OF_COLUMNS, NUMBER_OF_ROWS) {
   function fourConnected(a, b, c, d) {
     return (a !== null && a === b && a === c && a === d);
   }
-
-  return playerWins(grid);
-
 }

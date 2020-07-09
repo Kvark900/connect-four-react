@@ -4,7 +4,7 @@ import Nav from "react-bootstrap/Nav";
 import Controls from "./Controls";
 
 
-export default function Menu(props) {
+export default function Menu() {
   let [state, setState] = useState(1);
 
   function getBody() {
@@ -19,7 +19,7 @@ export default function Menu(props) {
             document.getElementsByClassName("nav-link")[2].classList.add("active");
             document.getElementsByClassName("nav-link")[3].classList.remove("active");
             setState(1)
-        }}> Game Menu </a> click New Game button after selecting game mode.
+        }}> Game Menu </a> and click New Game button after selecting game mode.
         </div>;
       case 3 :
         return <div id="card-body">
