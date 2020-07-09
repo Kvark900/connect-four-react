@@ -35,7 +35,7 @@ export default function Controls(props) {
 
   return (
       <>
-        <div className="text-danger"> {errorMsg} </div>
+        <div className="mb-2 text-danger"> {errorMsg} </div>
         <div className="custom-control custom-radio">
           <input ref={vsHumanRadio}
                  type="radio"
