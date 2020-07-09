@@ -7,7 +7,7 @@ import NavbarMenu from "./components/Navbar/Navbar";
 import {BrowserRouter as Router} from "react-router-dom";
 import {Redirect} from "react-router";
 import GameLogic from "./components/Game/GameLogic";
-import HighScore from "./components/HighScore/HighScore";
+import Ranking from "./components/HighScore/Ranking";
 import Firebase from "./config/fbConfig";
 import * as firebase from "firebase";
 
@@ -24,6 +24,7 @@ export default function App() {
   let [gameMode, setGameMode] = useState(null);
   let [playerTurn, setPlayerTurn] = useState("Yellow");
   let [rankings, setRankings] = useState([]);
+  let [showArrow, setShowArrow] = useState(-1);
 
   async function recordWin() {
     let username = JSON.parse(localStorage.getItem("authUser")).displayName;
@@ -127,6 +128,10 @@ export default function App() {
   function updateRankings(rankings) {
     setRankings(rankings)
   }
+
+  function toggleShowArrow(flag) {
+    setShowArrow(flag)
+  }
   //endregion
 
   if (localStorage.getItem("authUser") == null) return <Redirect to="/login"/>;
@@ -139,7 +144,8 @@ export default function App() {
           gameMode, changeGameMode,
           playerTurn, changePlayerTurn,
           getAIMove, playMove, resetGrid,
-          rankings, updateRankings
+          rankings, updateRankings,
+          showArrow, toggleShowArrow
         }}>
         <Router>
           <NavbarMenu/>
@@ -147,7 +153,7 @@ export default function App() {
             <Board/>
             <div className="sideDiv">
               <Menu/>
-              <HighScore/>
+              <Ranking/>
             </div>
           </div>
         </Router>

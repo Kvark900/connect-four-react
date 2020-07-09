@@ -6,7 +6,7 @@ import Firebase from "../../config/fbConfig";
 import {Table} from "reactstrap";
 import {GameContext} from "../../App";
 
-export default function HighScore() {
+export default function Ranking() {
   let { rankings, updateRankings } = useContext(GameContext);
 
   useEffect(() => {
