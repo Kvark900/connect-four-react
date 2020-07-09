@@ -1,9 +1,9 @@
 export default function GameLogic(grid, NUMBER_OF_COLUMNS, NUMBER_OF_ROWS) {
   function playerWins(grid) {
     return winsVertically(grid) ||
-        winsHorizontally(grid) ||
-        winsDiagonally(grid) ||
-        winsDiagonallyM(grid);
+           winsHorizontally(grid) ||
+           winsOnMainDiagonal(grid) ||
+           winsOnMinorDiagonal(grid);
   }
 
   function winsVertically(grid) {
@@ -22,7 +22,7 @@ export default function GameLogic(grid, NUMBER_OF_COLUMNS, NUMBER_OF_ROWS) {
     return false
   }
 
-  function winsDiagonally(grid) {
+  function winsOnMainDiagonal(grid) {
     for (let r = 0; r < 3; r++)
       for (let c = 0; c < 4; c++)
         if (fourConnected(grid[c][r], grid[c + 1][r + 1], grid[c + 2][r + 2], grid[c + 3][r + 3]))
@@ -30,7 +30,7 @@ export default function GameLogic(grid, NUMBER_OF_COLUMNS, NUMBER_OF_ROWS) {
     return false
   }
 
-  function winsDiagonallyM(grid) {
+  function winsOnMinorDiagonal(grid) {
     for (let r = 0; r < 4; r++)
       for (let c = 3; c < 6; c++)
         if (fourConnected(grid[c][r], grid[c - 1][r + 1], grid[c - 2][r + 2], grid[c - 3][r + 3]))
