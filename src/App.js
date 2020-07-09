@@ -10,6 +10,7 @@ import playerWins from "./components/Game/GameLogic";
 import Ranking from "./components/HighScore/Ranking";
 import Firebase from "./config/fbConfig";
 import * as firebase from "firebase";
+import CustomAlert from "./components/shared/CustomAlert";
 
 export const GameContext = createContext(null);
 
@@ -32,6 +33,8 @@ export default function App() {
   let [playerTurn, setPlayerTurn] = useState("Yellow");
   let [rankings, setRankings] = useState([]);
   let [showArrow, setShowArrow] = useState(-1);
+  let [showAlert, setShowAlert] = useState(false);
+  let [winnerMsg, setWinnerMsg] = useState("");
 
   async function recordWin() {
     let username = JSON.parse(localStorage.getItem("authUser")).displayName;
@@ -49,7 +52,9 @@ export default function App() {
   useEffect(() => {
     let wins = playerWins(grid, NUMBER_OF_COLUMNS, NUMBER_OF_ROWS);
     if (wins) {
-      alert(`Player ${wins} wins`);
+      // alert(`Player ${wins} wins`);
+      setShowAlert(true);
+      setWinnerMsg(`Player ${wins} wins`);
       if (playerTurn === "Red" && gameMode === "VSCOMPUTER")
         recordWin();
       enableGame(false)
@@ -139,6 +144,10 @@ export default function App() {
   function toggleShowArrow(flag) {
     setShowArrow(flag)
   }
+
+  function toggleShowAlert(flag) {
+    setShowAlert(flag)
+  }
   //endregion
 
   if (localStorage.getItem("authUser") == null) return <Redirect to="/login"/>;
@@ -152,10 +161,13 @@ export default function App() {
           playerTurn, changePlayerTurn,
           getAIMove, playMove, resetGrid,
           rankings, updateRankings,
-          showArrow, toggleShowArrow
+          showArrow, toggleShowArrow,
+          showAlert, toggleShowAlert,
+          winnerMsg
         }}>
         <Router>
           <NavbarMenu/>
+          <CustomAlert show={showAlert} msg={winnerMsg}/>
           <div className="Game">
             <Board/>
             <div className="sideDiv">
