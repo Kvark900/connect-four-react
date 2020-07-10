@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useState} from "react";
 import Form from "react-bootstrap/Form";
 import {
   Button,
@@ -14,23 +14,18 @@ import {
   Row
 } from "reactstrap";
 import Firebase from "../../config/fbConfig";
-import {GameContext, GlobalContext} from "../../App";
 
 
 export default function Register() {
   const REGISTER_SUCCESS_MSG = "You have registered successfully!";
-
-  let {
-    showAlert, toggleShowAlert,
-    alertMsg, updateAlertMsg
-  } = useContext(GlobalContext);
 
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
   let [username, setUsername] = useState("");
   let [firstName, setFirstName] = useState("");
   let [lastName, setLastName] = useState("");
-  let [successMsg, setSuccessMsg] = useState("");
+  let [message, setMessage] = useState("");
+  let [msgClass, setMsgClass] = useState("");
 
 
   async function handleSubmit(e) {
@@ -43,10 +38,13 @@ export default function Register() {
         username: username,
         password: password,
       });
-      setSuccessMsg(REGISTER_SUCCESS_MSG);
+      setMsgClass("text-success text-center");
+      setMessage(REGISTER_SUCCESS_MSG);
       resetFields();
       console.log(`User with email: ${email} created`)
     } catch (e) {
+      setMsgClass("text-danger text-center");
+      setMessage(e.message);
       console.log(e)
     }
   }
@@ -69,7 +67,7 @@ export default function Register() {
                   <div className="text-muted text-center mb-3">
                     <h1>Sign up</h1>
                   </div>
-                  <h4 className="text-success text-center"> {successMsg}</h4>
+                  <h4 className={msgClass} > {message}</h4>
                 </CardHeader>
                 <CardBody style={{background: "whitesmoke"}}
                           className="px-lg-5 py-lg-5">
@@ -87,7 +85,7 @@ export default function Register() {
                             name="firstName"
                             value={firstName}
                             onChange={e => {
-                              setSuccessMsg("");
+                              setMessage("");
                               setFirstName(e.target.value)
                             }}
                             required
@@ -106,7 +104,7 @@ export default function Register() {
                             name="lastName"
                             value={lastName}
                             onChange={e => {
-                              setSuccessMsg("");
+                              setMessage("");
                               setLastName(e.target.value)
                             }}
                             required
@@ -125,7 +123,7 @@ export default function Register() {
                             name="email"
                             value={email}
                             onChange={e => {
-                              setSuccessMsg("");
+                              setMessage("");
                               setEmail(e.target.value)
                             }}
                             required
@@ -144,7 +142,7 @@ export default function Register() {
                             name="username"
                             value={username}
                             onChange={e => {
-                              setSuccessMsg("");
+                              setMessage("");
                               setUsername(e.target.value)
                             }}
                             required
