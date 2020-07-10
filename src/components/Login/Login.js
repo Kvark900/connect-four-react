@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import NavbarMenu from "../Navbar/Navbar";
 import {
   Button,
@@ -17,19 +17,15 @@ import {
 } from "reactstrap";
 import Firebase from "../../config/fbConfig";
 import {useHistory} from "react-router";
+import {GlobalContext} from "../../App";
 
 
 export default function Login(props) {
+  let {user, updateUserSession} = useContext(GlobalContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   let history = useHistory();
-
-
-  function goHome() {
-    history.push("/");
-  }
-
 
   let handleSubmit = async (event) => {
     let fb = Firebase.getInstance();
@@ -39,19 +35,25 @@ export default function Login(props) {
       let response = await fb.signIn(email, password);
       setErrorMsg("");
       localStorage.setItem("authUser", JSON.stringify(response.user));
+      console.log("updating user session with data: ", response.user);
+      updateUserSession(response.user);
       // console.log(response);
       goHome();
-      // console.log("Current user is", localStorage.getItem("authUser"));
+      console.log("Current user is", JSON.parse(localStorage.getItem("authUser")));
    } catch (e) {
       console.error(e);
       localStorage.removeItem("authUser");
+      updateUserSession(null);
       setErrorMsg("Invalid credentials")
     }
   };
 
+  function goHome() {
+    history.push("/");
+  }
+
   return (
       <>
-        <NavbarMenu/>
         <Container className="pt-lg-7 mt-5">
           <Row className="justify-content-center">
             <Col lg="5">
@@ -70,7 +72,7 @@ export default function Login(props) {
                       <InputGroup>
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
-                            {/*<i className="ni ni-email-83"/>*/}
+                            <i className ="far fa-envelope"></i>
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
@@ -86,7 +88,7 @@ export default function Login(props) {
                       <InputGroup className="input-group-alternative">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
-                            {/*<i className="ni ni-lock-circle-open"/>*/}
+                            <i className="fas fa-key"></i>
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input

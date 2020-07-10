@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from "react";
-import NavbarMenu from "../Navbar/Navbar";
+import React, {useContext, useEffect, useState} from "react";
 import Form from "react-bootstrap/Form";
 import {
   Button,
@@ -15,9 +14,17 @@ import {
   Row
 } from "reactstrap";
 import Firebase from "../../config/fbConfig";
+import {GameContext, GlobalContext} from "../../App";
 
 
 export default function Register() {
+  const REGISTER_SUCCESS_MSG = "You have registered successfully!";
+
+  let {
+    showAlert, toggleShowAlert,
+    alertMsg, updateAlertMsg
+  } = useContext(GlobalContext);
+
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
   let [username, setUsername] = useState("");
@@ -26,7 +33,8 @@ export default function Register() {
   let [successMsg, setSuccessMsg] = useState("");
 
 
-  async function handleSubmit() {
+  async function handleSubmit(e) {
+    e.preventDefault();
     try {
       let response = await Firebase.getInstance().registerUser({
         firstName: firstName,
@@ -35,9 +43,8 @@ export default function Register() {
         username: username,
         password: password,
       });
-      setSuccessMsg("You have registered successfully!");
+      setSuccessMsg(REGISTER_SUCCESS_MSG);
       resetFields();
-      console.log("Server response", response);
       console.log(`User with email: ${email} created`)
     } catch (e) {
       console.log(e)
@@ -54,7 +61,6 @@ export default function Register() {
 
   return (
       <>
-        <NavbarMenu/>
         <Container className="pt-lg-7 mt-5">
           <Row className="justify-content-center">
             <Col lg="5">
@@ -67,19 +73,23 @@ export default function Register() {
                 </CardHeader>
                 <CardBody style={{background: "whitesmoke"}}
                           className="px-lg-5 py-lg-5">
-                  <Form>
+                  <Form role="form"
+                        onSubmit={handleSubmit}>
                     <FormGroup className="mb-3">
                       <InputGroup>
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
-                            {/*<i className="ni ni-email-83"/>*/}
+                             <i className="fas fa-file-signature"/>
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
                             placeholder="First Name"
                             name="firstName"
                             value={firstName}
-                            onChange={e => {setSuccessMsg(""); setFirstName(e.target.value)}}
+                            onChange={e => {
+                              setSuccessMsg("");
+                              setFirstName(e.target.value)
+                            }}
                             required
                         />
                       </InputGroup>
@@ -88,14 +98,17 @@ export default function Register() {
                       <InputGroup>
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
-                            {/*<i className="ni ni-email-83"/>*/}
+                            <i className="fas fa-file-signature"/>
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
                             placeholder="Last Name"
-                            name="firstName"
+                            name="lastName"
                             value={lastName}
-                            onChange={e => {setSuccessMsg(""); setLastName(e.target.value)}}
+                            onChange={e => {
+                              setSuccessMsg("");
+                              setLastName(e.target.value)
+                            }}
                             required
                         />
                       </InputGroup>
@@ -104,14 +117,17 @@ export default function Register() {
                       <InputGroup>
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
-                            {/*<i className="ni ni-email-83"/>*/}
+                            <i className="far fa-envelope"/>
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
                             placeholder="Email"
                             name="email"
                             value={email}
-                            onChange={e => {setSuccessMsg(""); setEmail(e.target.value)}}
+                            onChange={e => {
+                              setSuccessMsg("");
+                              setEmail(e.target.value)
+                            }}
                             required
                         />
                       </InputGroup>
@@ -120,14 +136,17 @@ export default function Register() {
                       <InputGroup>
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
-                            {/*<i className="ni ni-email-83"/>*/}
+                            <i className="fas fa-signature"/>
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
                             placeholder="Username"
                             name="username"
                             value={username}
-                            onChange={e => {setSuccessMsg(""); setUsername(e.target.value)}}
+                            onChange={e => {
+                              setSuccessMsg("");
+                              setUsername(e.target.value)
+                            }}
                             required
                         />
                       </InputGroup>
@@ -136,7 +155,7 @@ export default function Register() {
                       <InputGroup className="input-group-alternative">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
-                            {/*<i className="ni ni-lock-circle-open"/>*/}
+                            <i className="fas fa-key"/>
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
@@ -155,7 +174,7 @@ export default function Register() {
                       <Button
                           className="my-4"
                           color="primary"
-                          onClick={handleSubmit}
+                          type="submit"
                       >
                         Sign in
                       </Button>

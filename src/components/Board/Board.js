@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import './Board.css';
 import Column from "./Column/Column";
-import {GameContext} from "../../App";
+import {GameContext} from "../../Game/Game";
 import Arrow from "./Arrow/Arrow";
 
 export default function Board(props) {
@@ -10,9 +10,10 @@ export default function Board(props) {
   return <div>
     <div className="game-table">
       {grid.map((el, i) =>
-          <div style={{display: "flex", flexDirection: "column"}}>
-            <Arrow color={(showArrow === i && gameEnabled) ? "black" : "transparent"}/>
-            <Column key={i}
+          <div key={"boardDiv" + i} style={{display: "flex", flexDirection: "column"}}>
+            <Arrow key={"arrow"+ i}
+                   color={(showArrow === i && gameEnabled) ? "black" : "transparent"}/>
+            <Column key={"column" + i}
                     onMouseOver={() => { toggleShowArrow(i) }}
                     onMouseLeave={() => { toggleShowArrow(-i)}}
                     onClick={() => playMove(i)}

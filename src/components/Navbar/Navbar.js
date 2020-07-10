@@ -1,27 +1,26 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import {Link, useHistory} from "react-router-dom"
+import {GlobalContext} from "../../App";
 
 export default function NavbarMenu(props) {
-  let [user, setUser] = useState(null);
-  let history = useHistory();
+  let {user, updateUserSession} = useContext(GlobalContext);
 
   useEffect(() => {
-    let user = localStorage.getItem("authUser");
-    // console.log("From useEffect - setting user to:", user)
-    setUser(user);
-  }, [user]);
+    let authUser = JSON.parse(localStorage.getItem("authUser"));
+    console.log("From useEffect - setting user to:", authUser);
+    updateUserSession(authUser);
+  }, []);
 
   function signOut() {
-    setUser(null);
+    updateUserSession(null);
     localStorage.removeItem("authUser");
     window.location.reload();
   }
 
-  function getAuthLinks() {
-    let user = JSON.parse(localStorage.getItem("authUser"));
-    // console.log("from getAuthLinks() - rendering and user is", user)
+  function getNavLinks() {
+    // console.log("from getAuthLinks() - rendering and user is", user);
     if (user != null)
       return <Nav className="ml-auto pr-5 d-flex flex-row">
         <Nav.Link disabled
@@ -47,7 +46,7 @@ export default function NavbarMenu(props) {
               expand="lg">
         <Navbar.Brand as={Link}
                       to="/">Connect Four</Navbar.Brand>
-        {getAuthLinks()}
+        {getNavLinks()}
       </Navbar>
   )
 }

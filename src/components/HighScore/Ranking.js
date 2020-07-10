@@ -4,7 +4,7 @@ import CardHeader from "reactstrap/es/CardHeader";
 import CardBody from "reactstrap/es/CardBody";
 import Firebase from "../../config/fbConfig";
 import {Table} from "reactstrap";
-import {GameContext} from "../../App";
+import {GameContext} from "../../Game/Game";
 
 export default function Ranking() {
   let { rankings, updateRankings } = useContext(GameContext);
@@ -17,7 +17,7 @@ export default function Ranking() {
       }
   , []);
 
-  const listItems =  rankings.map((user, i) => <tr>
+  const listItems =  rankings.map((user, i) => <tr key={i}>
     <td> {i + 1}</td>
     <td>{user.user}</td>
     <td>{user.score}</td>

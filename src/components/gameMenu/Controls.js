@@ -1,5 +1,5 @@
 import React, {useContext, useRef, useState} from "react";
-import {GameContext} from "../../App";
+import {GameContext} from "../../Game/Game";
 
 
 export default function Controls(props) {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
@@ -10,13 +10,7 @@ import Register from "./components/Register/Register";
 
 ReactDOM.render(
     <React.StrictMode>
-      <Router>
-        <Switch>
-          <Route path="/"  component={App} exact/>
-          <Route path="/login"  component={Login} exact/>
-          <Route path="/register"  component={Register} exact/>
-        </Switch>
-      </Router>
+      <App/>
     </React.StrictMode>,
     document.getElementById('root')
 );
