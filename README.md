@@ -1,3 +1,22 @@
+# School project
+Student: Žigović Kemal  
+Professor: prof. dr. Adis Alihodžić  
+**Connect Four** game, with registration, authentication and score tracking functionalities. Developed with React and Firebase/Firestore.  
+Already registered and available accounts are:   
+email: `kemal.zigovic@pmf.unsa.ba`  
+pass: `kemalpmf`
+
+email: `user-pmf@gmail.com`  
+pass: `userpmf`
+
+email: `user2-pmf@gmail.com`  
+pass: `user2pmf` 
+
+<br>
+<br>
+<br>
+<br>
+<hr>
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
