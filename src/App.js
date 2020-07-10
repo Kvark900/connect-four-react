@@ -7,7 +7,7 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Game from "./Game/Game";
 import NavbarMenu from "./components/Navbar/Navbar";
-import CustomAlert from "./components/shared/CustomAlert";
+import CustomAlert from "./components/Shared/CustomAlert";
 
 export const GlobalContext = createContext(null);
 
@@ -41,19 +41,19 @@ export default function App() {
         }}>
           <Router>
             <NavbarMenu/>
-            <CustomAlert show={showAlert}
-                         msg={alertMsg}/>
-            <Switch>
-              <Route path="/"
-                     component={Game}
-                     exact/>
-              <Route path="/login"
-                     component={Login}
-                     exact/>
-              <Route path="/register"
-                     component={Register}
-                     exact/>
-            </Switch>
+              <CustomAlert show={showAlert}
+                           msg={alertMsg}/>
+              <Switch>
+                <Route path="/"
+                       component={Game}
+                       exact/>
+                <Route path="/login"
+                       component={Login}
+                       exact/>
+                <Route path="/register"
+                       component={Register}
+                       exact/>
+              </Switch>
           </Router>
       </GlobalContext.Provider>
   );

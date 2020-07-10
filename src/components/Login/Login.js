@@ -15,7 +15,7 @@ import {
   Row,
   Col,
 } from "reactstrap";
-import Firebase from "../../config/fbConfig";
+import Firebase from "../../Config/fbConfig";
 import {useHistory} from "react-router";
 import {GlobalContext} from "../../App";
 

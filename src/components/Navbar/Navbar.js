@@ -3,6 +3,8 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import {Link, useHistory} from "react-router-dom"
 import {GlobalContext} from "../../App";
+import logo from '../../assets/connect-four-logo.png';
+
 
 export default function NavbarMenu(props) {
   let {user, updateUserSession} = useContext(GlobalContext);
@@ -45,7 +47,17 @@ export default function NavbarMenu(props) {
       <Navbar bg="light"
               expand="lg">
         <Navbar.Brand as={Link}
-                      to="/">Connect Four</Navbar.Brand>
+                      to="/">
+          <span className="d-flex flex-column">
+            <span style={{fontSize: "1.50rem"}}>Connect Four</span>
+            <img src={logo}
+                 style={{
+                   width: "120px",
+                   height: "30px"
+                 }}
+                 alt="Connect Four"/>
+          </span>
+        </Navbar.Brand>
         {getNavLinks()}
       </Navbar>
   )

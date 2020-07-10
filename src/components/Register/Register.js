@@ -13,7 +13,7 @@ import {
   InputGroupText,
   Row
 } from "reactstrap";
-import Firebase from "../../config/fbConfig";
+import Firebase from "../../Config/fbConfig";
 
 
 export default function Register() {

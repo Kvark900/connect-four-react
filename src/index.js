@@ -3,14 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import {BrowserRouter as Router} from "react-router-dom";
-import {Route, Switch} from "react-router";
-import Login from "./components/Login/Login";
-import Register from "./components/Register/Register";
+import Footer from "./components/Footer/Footer";
 
 ReactDOM.render(
     <React.StrictMode>
       <App/>
+      <Footer/>
     </React.StrictMode>,
     document.getElementById('root')
 );

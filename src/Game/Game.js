@@ -5,11 +5,11 @@ import {Redirect} from "react-router";
 import * as firebase from "firebase";
 import {GlobalContext} from "../App";
 import playerWins from "./GameLogic";
-import CustomAlert from "../components/shared/CustomAlert";
+import CustomAlert from "../components/Shared/CustomAlert";
 import Board from "../components/Board/Board";
-import Menu from "../components/gameMenu/Menu";
+import Menu from "../components/GameMenu/Menu";
 import Ranking from "../components/HighScore/Ranking";
-import Firebase from "../config/fbConfig";
+import Firebase from "../Config/fbConfig";
 
 export const GameContext = createContext(null);
 

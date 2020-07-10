@@ -2,7 +2,7 @@ import React, {useContext, useEffect} from "react";
 import Card from "reactstrap/es/Card";
 import CardHeader from "reactstrap/es/CardHeader";
 import CardBody from "reactstrap/es/CardBody";
-import Firebase from "../../config/fbConfig";
+import Firebase from "../../Config/fbConfig";
 import {Table} from "reactstrap";
 import {GameContext} from "../../Game/Game";
 
