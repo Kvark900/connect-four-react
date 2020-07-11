@@ -47,7 +47,7 @@ export default function Game() {
 
   async function getRankings() {
     let fb = Firebase.getInstance();
-    const snap = await fb.db.collection("rankings").get();
+    const snap = await fb.db.collection("rankings").orderBy("score", "desc").get();
     return snap.docs.map(doc => doc.data());
   }
 

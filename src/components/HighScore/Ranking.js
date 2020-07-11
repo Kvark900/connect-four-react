@@ -11,13 +11,11 @@ export default function Ranking() {
 
   useEffect(() => {
         console.log("high score useEffect");
-        getRankings().then(
-            value => updateRankings(value)
-        );
+        getRankings().then(value => updateRankings(value));
       }
   , []);
 
-  const listItems =  rankings.map((user, i) => <tr key={i}>
+  const listItems =  rankings.map((user, i) => <tr key={user.user.toString()}>
     <td> {i + 1}</td>
     <td>{user.user}</td>
     <td>{user.score}</td>
