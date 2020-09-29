@@ -1,6 +1,3 @@
-# School project
-Student: Žigović Kemal  
-Professor: prof. dr. Adis Alihodžić  
 **Connect Four** game, with registration, authentication and score tracking functionalities. Developed with React and Firebase/Firestore.  
 Already registered and available accounts are:   
 email: `kemal.zigovic@pmf.unsa.ba`  
