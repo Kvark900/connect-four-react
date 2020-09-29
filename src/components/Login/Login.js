@@ -72,7 +72,7 @@ export default function Login(props) {
                       <InputGroup>
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
-                            <i className ="far fa-envelope"></i>
+                            <i className ="far fa-envelope"/>
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
@@ -88,7 +88,7 @@ export default function Login(props) {
                       <InputGroup className="input-group-alternative">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
-                            <i className="fas fa-key"></i>
+                            <i className="fas fa-key"/>
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
